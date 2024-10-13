@@ -108,7 +108,77 @@ jobs:
         expected-output: '5050'
         comparison-method: contains
         timeout: 10
-        max-score: 15
+        max-score: 10
+    - name: konversi x
+      id: konversi-x
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: konversi x
+        setup-command: ''
+        command: gcc konversi.c -o konversi && ./konversi
+        input: |-
+          0
+          5
+        expected-output: '15'
+        comparison-method: contains
+        timeout: 10
+        max-score: 14
+    - name: konversi xx
+      id: konversi-xx
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: konversi xx
+        setup-command: ''
+        command: gcc konversi.c -o konversi && ./konversi
+        input: |-
+          1
+          4
+        expected-output: '20'
+        comparison-method: contains
+        timeout: 10
+        max-score: 14
+    - name: konversi xxx
+      id: konversi-xxx
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: konversi xxx
+        setup-command: ''
+        command: gcc konversi.c -o konversi && ./konversi
+        input: |-
+          0
+          8
+        expected-output: '24'
+        comparison-method: contains
+        timeout: 10
+        max-score: 14
+    - name: konversi xxxx
+      id: konversi-xxxx
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: konversi xxxx
+        setup-command: ''
+        command: gcc konversi.c -o konversi && ./konversi
+        input: |-
+          1
+          10
+        expected-output: '50'
+        comparison-method: contains
+        timeout: 10
+        max-score: 14
+    - name: konversi xxxxx
+      id: konversi-xxxxx
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: konversi xxxxx
+        setup-command: ''
+        command: gcc konversi.c -o konversi && ./konversi
+        input: |-
+          1
+          78
+        expected-output: '390'
+        comparison-method: contains
+        timeout: 10
+        max-score: 14
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -120,5 +190,10 @@ jobs:
         BUKAN-PRIMA-24_RESULTS: "${{steps.bukan-prima-24.outputs.result}}"
         ARITMATIKA-8_RESULTS: "${{steps.aritmatika-8.outputs.result}}"
         ARITMATIKA-100_RESULTS: "${{steps.aritmatika-100.outputs.result}}"
+        KONVERSI-X_RESULTS: "${{steps.konversi-x.outputs.result}}"
+        KONVERSI-XX_RESULTS: "${{steps.konversi-xx.outputs.result}}"
+        KONVERSI-XXX_RESULTS: "${{steps.konversi-xxx.outputs.result}}"
+        KONVERSI-XXXX_RESULTS: "${{steps.konversi-xxxx.outputs.result}}"
+        KONVERSI-XXXXX_RESULTS: "${{steps.konversi-xxxxx.outputs.result}}"
       with:
-        runners: prima-2,prima-5,prima-71,bukan-prima-63,bukan-prima-70,bukan-prima-24,aritmatika-8,aritmatika-100
+        runners: prima-2,prima-5,prima-71,bukan-prima-63,bukan-prima-70,bukan-prima-24,aritmatika-8,aritmatika-100,konversi-x,konversi-xx,konversi-xxx,konversi-xxxx,konversi-xxxxx
