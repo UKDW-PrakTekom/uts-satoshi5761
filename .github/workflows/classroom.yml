@@ -1,0 +1,98 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: prima 2
+      id: prima-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: prima 2
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '2'
+        expected-output: '1'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: prima 5
+      id: prima-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: prima 5
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '5'
+        expected-output: '1'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: prima 71
+      id: prima-71
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: prima 71
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '71'
+        expected-output: '1'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: bukan prima 63
+      id: bukan-prima-63
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: bukan prima 63
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '63'
+        expected-output: '0'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: bukan prima 70
+      id: bukan-prima-70
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: bukan prima 70
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '70'
+        expected-output: '0'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: bukan prima 24
+      id: bukan-prima-24
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: bukan prima 24
+        setup-command: ''
+        command: gcc bilanganprima.c -o bilanganprima && ./bilanganprima
+        input: '24'
+        expected-output: '0'
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        PRIMA-2_RESULTS: "${{steps.prima-2.outputs.result}}"
+        PRIMA-5_RESULTS: "${{steps.prima-5.outputs.result}}"
+        PRIMA-71_RESULTS: "${{steps.prima-71.outputs.result}}"
+        BUKAN-PRIMA-63_RESULTS: "${{steps.bukan-prima-63.outputs.result}}"
+        BUKAN-PRIMA-70_RESULTS: "${{steps.bukan-prima-70.outputs.result}}"
+        BUKAN-PRIMA-24_RESULTS: "${{steps.bukan-prima-24.outputs.result}}"
+      with:
+        runners: prima-2,prima-5,prima-71,bukan-prima-63,bukan-prima-70,bukan-prima-24
